@@ -1,4 +1,4 @@
-﻿namespace bangna_hospital.gui
+namespace bangna_hospital.gui
 {
     partial class MainMenu
     {
@@ -37,6 +37,7 @@
             this.menuNurseScanView = new System.Windows.Forms.ToolStripMenuItem();
             this.menuMedicalRecord = new System.Windows.Forms.ToolStripMenuItem();
             this.menuScan = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuScanAddNew = new System.Windows.Forms.ToolStripMenuItem();
             this.menuScanView = new System.Windows.Forms.ToolStripMenuItem();
             this.menuPrint = new System.Windows.Forms.ToolStripMenuItem();
             this.menuScanChk = new System.Windows.Forms.ToolStripMenuItem();
@@ -134,6 +135,7 @@
             // 
             this.menuMedicalRecord.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuScan,
+            this.menuScanAddNew,
             this.menuScanView,
             this.menuPrint,
             this.menuScanChk,
@@ -145,8 +147,14 @@
             // menuScan
             // 
             this.menuScan.Name = "menuScan";
-            this.menuScan.Size = new System.Drawing.Size(180, 22);
-            this.menuScan.Text = "Scan ใหม่";
+            this.menuScan.Size = new System.Drawing.Size(220, 22);
+            this.menuScan.Text = "Scan ใหม่ (เดิม)";
+            // 
+            // menuScanAddNew
+            // 
+            this.menuScanAddNew.Name = "menuScanAddNew";
+            this.menuScanAddNew.Size = new System.Drawing.Size(220, 22);
+            this.menuScanAddNew.Text = "Scan จัดกลุ่มเอกสาร IPD (ใหม่)";
             // 
             // menuScanView
             // 
@@ -393,6 +401,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuLabAccept;
         private System.Windows.Forms.ToolStripMenuItem menuMedicalRecord;
         private System.Windows.Forms.ToolStripMenuItem menuScan;
+        private System.Windows.Forms.ToolStripMenuItem menuScanAddNew;
         private System.Windows.Forms.ToolStripMenuItem menuScanView;
         private System.Windows.Forms.ToolStripMenuItem convertPatientDonorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuNurseDefault;

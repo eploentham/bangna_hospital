@@ -1,4 +1,4 @@
-﻿using bangna_hospital.object1;
+using bangna_hospital.object1;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -154,6 +154,66 @@ namespace bangna_hospital.objdb
                 " ";
             dt = conn.selectData(sql);
 
+            return dt;
+        }
+        public DataTable SelectIPDPatients(string search, bool onlyActive = false, string dateStart = "", string dateEnd = "")
+        {
+            DataTable dt = new DataTable();
+            string sql = "SELECT TOP 200 " +
+                "t08.MNC_HN_NO, " +
+                "isnull(pm02.MNC_PFIX_DSC, '') as prefix, " +
+                "m01.MNC_FNAME_T, " +
+                "m01.MNC_LNAME_T, " +
+                "m01.MNC_BDAY, " +
+                "m01.MNC_SEX, " +
+                "m01.MNC_ID_NO, " +
+                "t08.MNC_AN_NO, " +
+                "t08.MNC_AN_YR, " +
+                "convert(varchar(20), t08.MNC_AD_DATE, 23) as MNC_AD_DATE, " +
+                "isnull(t08.MNC_AD_TIME, '') as MNC_AD_TIME, " +
+                "convert(varchar(20), t08.MNC_DS_DATE, 23) as MNC_DS_DATE, " +
+                "isnull(t08.MNC_DS_TIME, '') as MNC_DS_TIME, " +
+                "t08.MNC_WD_NO, " +
+                "isnull(m32.MNC_MD_DEP_DSC, t08.MNC_WD_NO) as ward_name, " +
+                "isnull(t08.MNC_RM_NAM, '') as MNC_RM_NAM, " +
+                "isnull(t08.MNC_BD_NO, '') as MNC_BD_NO, " +
+                "t08.MNC_PRE_NO, " +
+                "convert(varchar(20), t08.MNC_DATE, 23) as MNC_DATE, " +
+                "isnull(t08.MNC_VN_NO, '') as MNC_VN_NO, " +
+                "isnull(t08.MNC_VN_SEQ, '') as MNC_VN_SEQ, " +
+                "isnull(t08.MNC_VN_SUM, '') as MNC_VN_SUM, " +
+                "isnull(t08.MNC_DIA_MEMO, '') as MNC_DIA_MEMO, " +
+                "isnull(t08.MNC_DOT_MEMO, '') as MNC_DOT_MEMO " +
+                "FROM PATIENT_T08 t08 " +
+                "INNER JOIN PATIENT_M01 m01 ON t08.MNC_HN_NO = m01.MNC_HN_NO " +
+                "LEFT JOIN PATIENT_M02 pm02 ON m01.MNC_PFIX_CDT = pm02.MNC_PFIX_CD " +
+                "LEFT JOIN PATIENT_M32 m32 ON t08.MNC_WD_NO = m32.MNC_MD_DEP_NO " +
+                "WHERE 1=1 ";
+
+            if (onlyActive)
+            {
+                sql += "AND (t08.MNC_DS_DATE IS NULL OR t08.MNC_DS_DATE = '' OR t08.MNC_DS_DATE = '1900-01-01') ";
+            }
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                search = search.Trim().Replace("'", "''");
+                sql += "AND (t08.MNC_HN_NO LIKE '%" + search + "%' " +
+                       "OR t08.MNC_AN_NO LIKE '%" + search + "%' " +
+                       "OR m01.MNC_FNAME_T LIKE '%" + search + "%' " +
+                       "OR m01.MNC_LNAME_T LIKE '%" + search + "%' " +
+                       "OR m01.MNC_ID_NO LIKE '%" + search + "%' " +
+                       "OR m32.MNC_MD_DEP_DSC LIKE '%" + search + "%') ";
+            }
+
+            if (!string.IsNullOrEmpty(dateStart) && !string.IsNullOrEmpty(dateEnd))
+            {
+                sql += "AND t08.MNC_AD_DATE >= '" + dateStart + "' AND t08.MNC_AD_DATE <= '" + dateEnd + "' ";
+            }
+
+            sql += "ORDER BY t08.MNC_AD_DATE DESC, t08.MNC_AN_NO DESC ";
+
+            dt = conn.selectData(sql);
             return dt;
         }
         public String updateSecNo(String hn, String vsdate, String preno, String deptno, String secno, String wardno, String roomno)

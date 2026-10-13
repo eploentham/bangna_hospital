@@ -72,6 +72,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.txtDeptPreno = new C1.Win.C1Input.C1TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnDeptUpdateSTS = new C1.Win.C1Input.C1Button();
             this.btnDeptUpdate = new C1.Win.C1Input.C1Button();
             this.cboDeptNew = new C1.Win.C1Input.C1ComboBox();
             this.chkDeptIPDNew = new System.Windows.Forms.RadioButton();
@@ -170,7 +171,6 @@
             this.lb1 = new C1.Win.C1Ribbon.RibbonLabel();
             this.rb1 = new C1.Win.C1Ribbon.RibbonLabel();
             this.rb2 = new C1.Win.C1Ribbon.RibbonLabel();
-            this.btnDeptUpdateSTS = new C1.Win.C1Input.C1Button();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttHn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtJobNoCur)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtJobNo)).BeginInit();
@@ -197,6 +197,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtDeptVsdate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDeptPreno)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnDeptUpdateSTS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnDeptUpdate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboDeptNew)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDeptDept)).BeginInit();
@@ -245,7 +246,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1Button3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1TextBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sbMessage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnDeptUpdateSTS)).BeginInit();
             this.SuspendLayout();
             // 
             // txtPttHn
@@ -421,7 +421,7 @@
             this.c1DockingTab1.Location = new System.Drawing.Point(0, 0);
             this.c1DockingTab1.Name = "c1DockingTab1";
             this.c1DockingTab1.SelectedIndex = 4;
-            this.c1DockingTab1.Size = new System.Drawing.Size(1332, 638);
+            this.c1DockingTab1.Size = new System.Drawing.Size(1688, 638);
             this.c1DockingTab1.TabIndex = 129;
             this.c1DockingTab1.TabsSpacing = 5;
             // 
@@ -445,7 +445,7 @@
             this.c1DockingTabPage1.Controls.Add(this.label4);
             this.c1DockingTabPage1.Location = new System.Drawing.Point(1, 30);
             this.c1DockingTabPage1.Name = "c1DockingTabPage1";
-            this.c1DockingTabPage1.Size = new System.Drawing.Size(1330, 607);
+            this.c1DockingTabPage1.Size = new System.Drawing.Size(1686, 607);
             this.c1DockingTabPage1.TabIndex = 0;
             this.c1DockingTabPage1.Text = "แก้บิล การเงินให้ดึงกลับ";
             // 
@@ -454,7 +454,7 @@
             this.c1DockingTabPage2.Controls.Add(this.c1Button1);
             this.c1DockingTabPage2.Location = new System.Drawing.Point(1, 30);
             this.c1DockingTabPage2.Name = "c1DockingTabPage2";
-            this.c1DockingTabPage2.Size = new System.Drawing.Size(1330, 607);
+            this.c1DockingTabPage2.Size = new System.Drawing.Size(1686, 607);
             this.c1DockingTabPage2.TabIndex = 1;
             this.c1DockingTabPage2.Text = "แก้ สถานะ A";
             // 
@@ -488,7 +488,7 @@
             this.c1DockingTabPage3.Controls.Add(this.txtAnHN);
             this.c1DockingTabPage3.Location = new System.Drawing.Point(1, 30);
             this.c1DockingTabPage3.Name = "c1DockingTabPage3";
-            this.c1DockingTabPage3.Size = new System.Drawing.Size(1330, 607);
+            this.c1DockingTabPage3.Size = new System.Drawing.Size(1686, 607);
             this.c1DockingTabPage3.TabIndex = 2;
             this.c1DockingTabPage3.Text = "รวม AN";
             // 
@@ -661,7 +661,7 @@
             this.c1DockingTabPage4.Controls.Add(this.txtDeptHN);
             this.c1DockingTabPage4.Location = new System.Drawing.Point(1, 30);
             this.c1DockingTabPage4.Name = "c1DockingTabPage4";
-            this.c1DockingTabPage4.Size = new System.Drawing.Size(1330, 607);
+            this.c1DockingTabPage4.Size = new System.Drawing.Size(1686, 607);
             this.c1DockingTabPage4.TabIndex = 3;
             this.c1DockingTabPage4.Text = "ส่งแผนกผิด";
             // 
@@ -724,6 +724,16 @@
             this.groupBox1.TabIndex = 132;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "ส่งไปแผนก";
+            // 
+            // btnDeptUpdateSTS
+            // 
+            this.btnDeptUpdateSTS.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnDeptUpdateSTS.Location = new System.Drawing.Point(15, 78);
+            this.btnDeptUpdateSTS.Name = "btnDeptUpdateSTS";
+            this.btnDeptUpdateSTS.Size = new System.Drawing.Size(153, 45);
+            this.btnDeptUpdateSTS.TabIndex = 204;
+            this.btnDeptUpdateSTS.Text = "แก้ไข sts C -> O";
+            this.btnDeptUpdateSTS.UseVisualStyleBackColor = true;
             // 
             // btnDeptUpdate
             // 
@@ -862,7 +872,7 @@
             this.c1DockingTabPage5.Controls.Add(this.groupBox2);
             this.c1DockingTabPage5.Location = new System.Drawing.Point(1, 30);
             this.c1DockingTabPage5.Name = "c1DockingTabPage5";
-            this.c1DockingTabPage5.Size = new System.Drawing.Size(1330, 607);
+            this.c1DockingTabPage5.Size = new System.Drawing.Size(1686, 607);
             this.c1DockingTabPage5.TabIndex = 4;
             this.c1DockingTabPage5.Text = "gen Token";
             // 
@@ -1042,7 +1052,7 @@
             this.c1DockingTabPage6.Controls.Add(this.txtVoidHN);
             this.c1DockingTabPage6.Location = new System.Drawing.Point(1, 30);
             this.c1DockingTabPage6.Name = "c1DockingTabPage6";
-            this.c1DockingTabPage6.Size = new System.Drawing.Size(1330, 607);
+            this.c1DockingTabPage6.Size = new System.Drawing.Size(1686, 607);
             this.c1DockingTabPage6.TabIndex = 5;
             this.c1DockingTabPage6.Text = "Void Visit";
             // 
@@ -1140,7 +1150,7 @@
             this.c1DockingTabPage7.Controls.Add(this.txtDtrcode);
             this.c1DockingTabPage7.Location = new System.Drawing.Point(1, 30);
             this.c1DockingTabPage7.Name = "c1DockingTabPage7";
-            this.c1DockingTabPage7.Size = new System.Drawing.Size(1330, 607);
+            this.c1DockingTabPage7.Size = new System.Drawing.Size(1686, 607);
             this.c1DockingTabPage7.TabIndex = 6;
             this.c1DockingTabPage7.Text = "appoinment";
             // 
@@ -1213,7 +1223,7 @@
             this.c1DockingTabPage8.Controls.Add(this.c1Button2);
             this.c1DockingTabPage8.Location = new System.Drawing.Point(1, 30);
             this.c1DockingTabPage8.Name = "c1DockingTabPage8";
-            this.c1DockingTabPage8.Size = new System.Drawing.Size(1330, 607);
+            this.c1DockingTabPage8.Size = new System.Drawing.Size(1686, 607);
             this.c1DockingTabPage8.TabIndex = 7;
             this.c1DockingTabPage8.Text = "test app";
             // 
@@ -1306,7 +1316,7 @@
             this.c1DockingTabPage9.Controls.Add(this.c1TextBox1);
             this.c1DockingTabPage9.Location = new System.Drawing.Point(1, 30);
             this.c1DockingTabPage9.Name = "c1DockingTabPage9";
-            this.c1DockingTabPage9.Size = new System.Drawing.Size(1330, 607);
+            this.c1DockingTabPage9.Size = new System.Drawing.Size(1686, 607);
             this.c1DockingTabPage9.TabIndex = 8;
             this.c1DockingTabPage9.Text = "ใบรับรองแพทย์ duplicate key";
             // 
@@ -1379,7 +1389,7 @@
             this.c1DockingTabPage10.Controls.Add(this.lbXrayPttnameT);
             this.c1DockingTabPage10.Location = new System.Drawing.Point(1, 30);
             this.c1DockingTabPage10.Name = "c1DockingTabPage10";
-            this.c1DockingTabPage10.Size = new System.Drawing.Size(1330, 607);
+            this.c1DockingTabPage10.Size = new System.Drawing.Size(1686, 607);
             this.c1DockingTabPage10.TabIndex = 9;
             this.c1DockingTabPage10.Text = "Xray worklist ไม่เข้า";
             // 
@@ -1571,7 +1581,7 @@
             this.c1DockingTabPage11.Controls.Add(this.panel5);
             this.c1DockingTabPage11.Location = new System.Drawing.Point(1, 30);
             this.c1DockingTabPage11.Name = "c1DockingTabPage11";
-            this.c1DockingTabPage11.Size = new System.Drawing.Size(1330, 607);
+            this.c1DockingTabPage11.Size = new System.Drawing.Size(1686, 607);
             this.c1DockingTabPage11.TabIndex = 10;
             this.c1DockingTabPage11.Text = "Lab Request Uni";
             // 
@@ -1580,7 +1590,7 @@
             this.pnLabReqView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnLabReqView.Location = new System.Drawing.Point(0, 52);
             this.pnLabReqView.Name = "pnLabReqView";
-            this.pnLabReqView.Size = new System.Drawing.Size(1330, 555);
+            this.pnLabReqView.Size = new System.Drawing.Size(1686, 555);
             this.pnLabReqView.TabIndex = 0;
             // 
             // panel5
@@ -1592,7 +1602,7 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel5.Location = new System.Drawing.Point(0, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1330, 52);
+            this.panel5.Size = new System.Drawing.Size(1686, 52);
             this.panel5.TabIndex = 0;
             // 
             // btnLabReqHn
@@ -1639,7 +1649,7 @@
             this.c1DockingTabPage12.Controls.Add(this.panel6);
             this.c1DockingTabPage12.Location = new System.Drawing.Point(1, 30);
             this.c1DockingTabPage12.Name = "c1DockingTabPage12";
-            this.c1DockingTabPage12.Size = new System.Drawing.Size(1330, 607);
+            this.c1DockingTabPage12.Size = new System.Drawing.Size(1686, 607);
             this.c1DockingTabPage12.TabIndex = 11;
             this.c1DockingTabPage12.Text = "Lab Follow";
             // 
@@ -1650,7 +1660,7 @@
             this.panel6.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel6.Location = new System.Drawing.Point(0, 0);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(1330, 39);
+            this.panel6.Size = new System.Drawing.Size(1686, 39);
             this.panel6.TabIndex = 134;
             // 
             // c1TextBox2
@@ -1681,7 +1691,7 @@
             this.c1DockingTabPage13.Controls.Add(this.label39);
             this.c1DockingTabPage13.Location = new System.Drawing.Point(1, 30);
             this.c1DockingTabPage13.Name = "c1DockingTabPage13";
-            this.c1DockingTabPage13.Size = new System.Drawing.Size(1330, 607);
+            this.c1DockingTabPage13.Size = new System.Drawing.Size(1686, 607);
             this.c1DockingTabPage13.TabIndex = 12;
             this.c1DockingTabPage13.Text = "Void เวชscan";
             // 
@@ -1739,7 +1749,7 @@
             this.sbMessage.Name = "sbMessage";
             this.sbMessage.RightPaneItems.Add(this.rb1);
             this.sbMessage.RightPaneItems.Add(this.rb2);
-            this.sbMessage.Size = new System.Drawing.Size(1332, 22);
+            this.sbMessage.Size = new System.Drawing.Size(1688, 22);
             // 
             // lb1
             // 
@@ -1756,21 +1766,11 @@
             this.rb2.Name = "rb2";
             this.rb2.Text = "Label";
             // 
-            // btnDeptUpdateSTS
-            // 
-            this.btnDeptUpdateSTS.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnDeptUpdateSTS.Location = new System.Drawing.Point(15, 78);
-            this.btnDeptUpdateSTS.Name = "btnDeptUpdateSTS";
-            this.btnDeptUpdateSTS.Size = new System.Drawing.Size(153, 45);
-            this.btnDeptUpdateSTS.TabIndex = 204;
-            this.btnDeptUpdateSTS.Text = "แก้ไข sts C -> O";
-            this.btnDeptUpdateSTS.UseVisualStyleBackColor = true;
-            // 
             // FrmEditJobNo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1332, 660);
+            this.ClientSize = new System.Drawing.Size(1688, 660);
             this.Controls.Add(this.c1DockingTab1);
             this.Controls.Add(this.sbMessage);
             this.Name = "FrmEditJobNo";
@@ -1808,6 +1808,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtDeptPreno)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnDeptUpdateSTS)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnDeptUpdate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboDeptNew)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDeptDept)).EndInit();
@@ -1865,7 +1866,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1Button3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1TextBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sbMessage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnDeptUpdateSTS)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

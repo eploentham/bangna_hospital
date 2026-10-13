@@ -1,4 +1,4 @@
-﻿using bangna_hospital.control;
+using bangna_hospital.control;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -400,23 +400,34 @@ namespace bangna_hospital.gui
         private void BtnInsert_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            if (dtBr1.Rows.Count > 0)
+            try
             {
-                bc.bcDB.BulkInsert(dtBr1, "1");
-                listBox1.Items.Add("BulkInsert 1 ok");
-                Application.DoEvents();
+                // ตรวจสอบและตัดข้อมูล SocialID ซ้ำข้ามสาขาอัตโนมัติก่อนเริ่มบันทึก
+                CheckDuplicateSocialIDAcrossTables();
+
+                if (dtBr1.Rows.Count > 0)
+                {
+                    bc.bcDB.BulkInsert(dtBr1, "1");
+                    listBox1.Items.Add("BulkInsert 1 ok");
+                    Application.DoEvents();
+                }
+                if (dtBr2.Rows.Count > 0)
+                {
+                    bc.bcDB.BulkInsert(dtBr2, "2");
+                    listBox1.Items.Add("BulkInsert 2 ok");
+                    Application.DoEvents();
+                }
+                if (dtBr5.Rows.Count > 0)
+                {
+                    bc.bcDB.BulkInsert(dtBr5, "5");
+                    listBox1.Items.Add("BulkInsert 5 ok");
+                    Application.DoEvents();
+                }
             }
-            if (dtBr2.Rows.Count > 0)
+            catch (Exception ex)
             {
-                bc.bcDB.BulkInsert(dtBr2, "2");
-                listBox1.Items.Add("BulkInsert 2 ok");
-                Application.DoEvents();
-            }
-            if (dtBr5.Rows.Count > 0)
-            {
-                bc.bcDB.BulkInsert(dtBr5, "5");
-                listBox1.Items.Add("BulkInsert 5 ok");
-                Application.DoEvents();
+                listBox1.Items.Add("Error BulkInsert: " + ex.Message);
+                MessageBox.Show("เกิดข้อผิดพลาดในการบันทึกข้อมูล: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

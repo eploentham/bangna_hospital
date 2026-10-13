@@ -1,4 +1,4 @@
-﻿using bangna_hospital.control;
+using bangna_hospital.control;
 using bangna_hospital.gui;
 using bangna_hospital.object1;
 using System;
@@ -72,12 +72,15 @@ namespace bangna_hospital
                         Application.Run(frm);
                     }
                 }
-                else if (bc.iniC.programLoad.Equals("ScanAdd"))
+                else if (bc.iniC.programLoad.Equals("ScanAdd", StringComparison.OrdinalIgnoreCase) || bc.iniC.programLoad.Equals("ScanAddNew", StringComparison.OrdinalIgnoreCase))
                 {
-                    FrmSplash spl = new FrmSplash();
-                    spl.Show();
-                    Application.Run(new gui.MainMenu(bc, spl));
-                    //Application.Run(frm);
+                    if (bc.bcDB == null)
+                    {
+                        bc.bcDB = new objdb.BangnaHospitalDB(bc.conn);
+                    }
+                    FrmScanAddNew frm = new FrmScanAddNew(bc, null);
+                    frm.WindowState = FormWindowState.Maximized;
+                    Application.Run(frm);
                 }
                 else if (bc.iniC.programLoad.Equals("XrayImportToPACs"))
                 {

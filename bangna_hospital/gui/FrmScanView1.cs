@@ -66,6 +66,7 @@ namespace bangna_hospital.gui
 
         C1TextBox txtItmRowNo, txtItmId, txtItmName, txtItmQty, txtItmFre, txtItmIn1, txtItmIn2, txtPrnEmailTo, txtPrnEmailSubject, txtPrnEmailBody, txtItmFlag,txtItmNum, txtItmPerDay, txtItmNumDay;
         C1Button btnItmSend, btnItmDrugSet, btnItmSave, btnPrnFile, btnPrn, btnSearch, btnCertiNew, btnCertiNew1,btnCerti1View;
+        C1Button btnDocOk, btnDocExport, btnPrnEmailImgBrow, btnPrnEmailImgOpen, btnPrnEmailImgSend;
         C1SplitterPanel scOrdItem = new C1.Win.C1SplitContainer.C1SplitterPanel();
         C1SplitterPanel scOrdItemGrf = new C1.Win.C1SplitContainer.C1SplitterPanel();
         C1SplitContainer sCOrdItem = new C1.Win.C1SplitContainer.C1SplitContainer();
@@ -74,7 +75,7 @@ namespace bangna_hospital.gui
         Panel pnTabCertiTop = new Panel();
         Panel pnTabCertiBotton = new Panel();
 
-        C1Button btnDocOk, btnDocExport, btnPrnEmailImgBrow, btnPrnEmailImgOpen, btnPrnEmailImgSend;
+        
         Label lbDocGrp, lbDocSubGrp, lbDocAn, lbPrnDateStart, lbPrnDateEnd, label11, labe2, lbtxtPrnEmailTo, lbtxtPrnEmailSubject, lbtxtPrnEmailBody;
         C1ComboBox cboDocGrp, cboDocSubGrp;
 

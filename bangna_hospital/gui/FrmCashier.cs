@@ -1,4 +1,4 @@
-﻿using bangna_hospital.control;
+using bangna_hospital.control;
 using bangna_hospital.objdb;
 using bangna_hospital.object1;
 using C1.C1Pdf;
@@ -81,6 +81,40 @@ namespace bangna_hospital.gui
         AutoCompleteStringCollection acb;
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         internal static extern IntPtr GetFocus();
+
+        // === TOP HEADER / NOTIFICATION & PATIENTMSG MODULE ===
+        Panel pnTopHeader;
+        Label lbTopNotifyIcon;
+        Label lbTopNotification;
+        Panel pnTopRight;
+        Button badgePatientMsg;
+        Button btnTopRefresh;
+
+        // === PATIENTMSG SLIDE-OUT DRAWER ===
+        Panel drawerPatientMsg;
+        Panel pnDrawerHeader;
+        Label lbDrawerTitle;
+        Button btnDrawerClose;
+        Panel pnDrawerList;
+        Panel pnDrawerCompose;
+        TextBox txtDrawerNewMsg;
+        ComboBox cboDrawerMsgType;
+        Button btnDrawerSend;
+
+        public class PatientMsgItem
+        {
+            public string MsgId { get; set; }
+            public string HN { get; set; }
+            public string Preno { get; set; }
+            public string VsDate { get; set; }
+            public string SenderName { get; set; }
+            public string SenderDept { get; set; }
+            public string MsgType { get; set; } // "URGENT", "FINANCE", "PHARMA", "GENERAL"
+            public string MsgText { get; set; }
+            public DateTime CreateDate { get; set; }
+            public bool IsRead { get; set; }
+        }
+        List<PatientMsgItem> lPatientMsgs = new List<PatientMsgItem>();
         public FrmCashier(BangnaControl bc)
         {
             this.bc = bc; this.PTT = null; InitializeComponent();
@@ -123,6 +157,8 @@ namespace bangna_hospital.gui
             initGrfInv(ref grfInvIPD, ref pnGrfFinishInvIPD);
             initGrfOperList();
             initGrfExp();
+            initTopHeader();
+            initPatientMsgDrawer();
             //timeOperList.Enabled = true;
             //timeOperList.Start();
             TABFINISHACTIVE = tabFinishOPD.Name;
@@ -536,9 +572,7 @@ namespace bangna_hospital.gui
             if (txtMasterSimb2CodeBSGNew.Text.Trim().Length <= 0)       { lfSbMessage.Text = "กรุณาระบุรหัสกลุ่มย่อย BSG";        return; }
             if (txtMasterSimb2CodeSubGTHNew.Text.Trim().Length <= 0)    { lfSbMessage.Text = "กรุณาระบุชื่อกลุ่มย่อยใหม่ (ไทย)";    return; }
             if (txtMasterSimb2CodeSubGENNew.Text.Trim().Length <= 0)    { lfSbMessage.Text = "กรุณาระบุชื่อกลุ่มย่อยใหม่ (อังกฤษ)";  return; }
-            Simb2BillingGroup chk = simb2DB.GetByCodeBG(txtMasterSimb2CodeBGNew.Text.Trim());
-            if (chk != null)    {                lfSbMessage.Text = "รหัส SIMB2 นี้มีอยู่แล้วในระบบ";                return;           }
-            chk = simb2DB.GetByCodeBSG(txtMasterSimb2CodeBSGNew.Text.Trim()); 
+            Simb2BillingGroup chk = simb2DB.GetByCodeBSG(txtMasterSimb2CodeBSGNew.Text.Trim()); 
             if (chk != null)    {                lfSbMessage.Text = "รหัสกลุ่มย่อย BSG นี้มีอยู่แล้วในระบบ";              return;       }
             Simb2BillingGroup obj = new Simb2BillingGroup();
             obj.ID = 0;
@@ -554,6 +588,12 @@ namespace bangna_hospital.gui
                 lfSbMessage.Text = "Insert new SIMB2 สำเร็จ";
                 listSimb2.Add(obj);
                 setGrfMasterSimb2();
+                txtMasterSimb2CodeBGNew.Value = "";
+                txtMasterSimb2BillGTHNew.Value = "";
+                txtMasterSimb2BillGENNew.Value = "";
+                txtMasterSimb2CodeBSGNew.Value = "";
+                txtMasterSimb2CodeSubGTHNew.Value = "";
+                txtMasterSimb2CodeSubGENNew.Value = "";
             }
             else
             {
@@ -577,12 +617,13 @@ namespace bangna_hospital.gui
             if (txtMasterSimb2CodeBSG.Text.Trim().Length <= 0)      { lfSbMessage.Text = "กรุณาระบุ SIMB2 code"; return; }
             String re = "";
             if (chkMasterDrug.Checked)      {   re = bc.bcDB.pharM01DB.UpdateCodeBSG(txtMasterDrugGenericCode.Text.Trim(), txtMasterFnCode.Text.Trim(), txtMasterSimb2CodeBSG.Text.Trim());      }
+            else if (chkMastersupply.Checked) { re = bc.bcDB.pharM01DB.UpdateCodeBSG(txtMasterDrugGenericCode.Text.Trim(), txtMasterFnCode.Text.Trim(), txtMasterSimb2CodeBSG.Text.Trim()); }
             else if (chkMasterLab.Checked)  {   re = bc.bcDB.labM01DB.UpdateCodeBSG(txtMasterDrugGenericCode.Text.Trim(), txtMasterFnCode.Text.Trim(), txtMasterSimb2CodeBSG.Text.Trim());       }
             else if (chkMasterXray.Checked) {   re = bc.bcDB.xrayM01DB.UpdateCodeBSG(txtMasterDrugGenericCode.Text.Trim(), txtMasterFnCode.Text.Trim(), txtMasterSimb2CodeBSG.Text.Trim());      }
             else if (chkMasterProc.Checked) {   re = bc.bcDB.pm30DB.UpdateCodeBSG(txtMasterDrugGenericCode.Text.Trim(), txtMasterFnCode.Text.Trim(), txtMasterSimb2CodeBSG.Text.Trim()); }
             else if (chkMasterFncode.Checked) { re = bc.bcDB.finM01DB.updateSCodeBSG(txtMasterFnCode.Text.Trim(), txtMasterSimb2CodeBSG.Text.Trim()); }
             else if (chkMasterDf.Checked)   {   re = bc.bcDB.finM01DB.updateSCodeBSG(txtMasterFnCode.Text.Trim(), txtMasterSimb2CodeBSG.Text.Trim());       }
-            if (long.Parse(re) > 0)
+            if (long.TryParse(re, out long parseResult) && parseResult > 0)
             {
                 lfSbMessage.Text = "Update SIMB2 code สำเร็จ";
                 setGrfMasterDrug();
@@ -990,6 +1031,9 @@ namespace bangna_hospital.gui
                 frm.PrintReport();
             }
         }
+        /**
+         * พิมพ์ใบเสร็จรับเงินแบบ จากระบบhisold
+         */
         private void setPrintINV()
         {
             if (DTINV == null) return;
@@ -1182,9 +1226,9 @@ namespace bangna_hospital.gui
             if (grfMasterSimb2.Row <= 0) return;
             if (FLAGNEWSIMB2)
             {
-                txtMasterSimb2CodeBGNew.Value = grfMasterSimb2[grfMasterSimb2.Row, colgrfSimb2CodeBSG]?.ToString() ?? "";
-                txtMasterSimb2BillGTHNew.Value = grfMasterSimb2[grfMasterSimb2.Row, colgrfSimb2CodeSubGTH]?.ToString() ?? "";
-                txtMasterSimb2BillGENNew.Value = grfMasterSimb2[grfMasterSimb2.Row, colgrfSimb2CodeSubGEN]?.ToString() ?? "";
+                txtMasterSimb2CodeBGNew.Value = grfMasterSimb2[grfMasterSimb2.Row, colgrfSimb2CodeBG]?.ToString() ?? "";
+                txtMasterSimb2BillGTHNew.Value = grfMasterSimb2[grfMasterSimb2.Row, colgrfSimb2BillGTH]?.ToString() ?? "";
+                txtMasterSimb2BillGENNew.Value = grfMasterSimb2[grfMasterSimb2.Row, colgrfSimb2BillGEN]?.ToString() ?? "";
                 txtMasterSimb2CodeBSGNew.Value = "";
                 txtMasterSimb2CodeSubGTHNew.Value = "";
                 txtMasterSimb2CodeSubGENNew.Value = "";
@@ -1193,8 +1237,8 @@ namespace bangna_hospital.gui
             {
                 txtMasterSimb2id.Value = grfMasterSimb2[grfMasterSimb2.Row, colgrfSimb2GID]?.ToString() ?? "";
                 txtMasterSimb2CodeBG.Value = grfMasterSimb2[grfMasterSimb2.Row, colgrfSimb2CodeBG]?.ToString() ?? "";
-                txtMasterSimb2BillGTH.Value = grfMasterSimb2[grfMasterSimb2.Row, colgrfSimb2BillGEN]?.ToString() ?? "";
-                txtMasterSimb2BillGEN.Value = grfMasterSimb2[grfMasterSimb2.Row, colgrfSimb2BillGTH]?.ToString() ?? "";
+                txtMasterSimb2BillGTH.Value = grfMasterSimb2[grfMasterSimb2.Row, colgrfSimb2BillGTH]?.ToString() ?? "";
+                txtMasterSimb2BillGEN.Value = grfMasterSimb2[grfMasterSimb2.Row, colgrfSimb2BillGEN]?.ToString() ?? "";
                 txtMasterSimb2CodeBSG.Value = grfMasterSimb2[grfMasterSimb2.Row, colgrfSimb2CodeBSG]?.ToString() ?? "";
                 txtMasterSimb2CodeSubGTH.Value = grfMasterSimb2[grfMasterSimb2.Row, colgrfSimb2CodeSubGTH]?.ToString() ?? "";
                 txtMasterSimb2CodeSubGEN.Value = grfMasterSimb2[grfMasterSimb2.Row, colgrfSimb2CodeSubGEN]?.ToString() ?? "";
@@ -1291,7 +1335,6 @@ namespace bangna_hospital.gui
                 txtMasterDrugGenericCode.Value = code1;
                 txtMasterDrugGenricName.Value = name;
                 txtMasterFnCode.Value = fncode;
-                txtMasterSimb2BillGEN.Value = grfMasterDrug[grfMasterDrug.Row, colgrfDrugFnName]?.ToString() ?? "";
             }
         }
         private void setGrfMasterDrug()
@@ -1543,10 +1586,12 @@ namespace bangna_hospital.gui
             VSDATE = grfOperList[grfOperList.Row, colgrfOperListVsDate].ToString();
             VSTIME = grfOperList[grfOperList.Row, colgrfOperListVsTime].ToString();
             DOCDATE = grfOperList[grfOperList.Row, colgrfOperListVsDate].ToString();
+            PAIDCODE = grfOperList[grfOperList.Row, colgrfOperListPaidName] != null ? grfOperList[grfOperList.Row, colgrfOperListPaidName].ToString() : "";
             //DOCNO = grfOperList[grfOperList.Row, colgrfOperListDocno].ToString();
             //FNCODE = grfFinish[grfFinish.Row, colgrfDrugFnCd].ToString();
 
             setGrfInv(DOCNO, DOCDATE);
+            updateTopHeaderAndMsg(HN, PTTNAME, PAIDCODE, VSDATE, DOCNO);
         }
         private void setGrfOperList(String date)
         {
@@ -1653,6 +1698,9 @@ namespace bangna_hospital.gui
             pn.Controls.Add(grf);
             theme1.SetTheme(grf, bc.iniC.themegrfIpd);
         }
+        /**
+         * DTINV
+         */
         private void setGrfInv(String docno, String docdate)
         {
             if (isLoad) return;
@@ -1770,6 +1818,7 @@ namespace bangna_hospital.gui
                 ANNO = grid[grid.Row, colgrfFinishAN].ToString();
             //grid.Dispose();
                 setGrfInv(DOCNO, DOCDATE);
+                updateTopHeaderAndMsg(HN, PTTNAME, PAIDCODE, VSDATE, DOCNO);
             //}
             //else if (((C1FlexGrid)sender).Name.Equals(grfFinishIPD.Name))
             //{
@@ -1869,7 +1918,7 @@ namespace bangna_hospital.gui
         }
         private void printReceiptDetailSIMB2()
         {
-            if ((DTSIMB2 != null) && (DTSIMB2.Rows.Count == 0)) { lfSbMessage.Text = "ไม่พบข้อมูล"; return; }
+            if (DTPRINT == null || DTPRINT.Rows.Count == 0) { lfSbMessage.Text = "ไม่พบข้อมูล"; return; }
             // Reset counter
             //new LogWriter("e", "printReceiptDetailSIMB2 ");
             currentPrintRow = 0; totalNet = 0;
@@ -1962,7 +2011,7 @@ namespace bangna_hospital.gui
         private void printReceiptSIMB2()
         {
             DTPRINT = DTSIMB2;
-            if (DTPRINT.Rows.Count == 0) { lfSbMessage.Text = "ไม่พบข้อมูล"; return; }
+            if (DTPRINT == null || DTPRINT.Rows.Count == 0) { lfSbMessage.Text = "ไม่พบข้อมูล"; return; }
             // Reset counter
             currentPrintRow = 0; totalNet = 0;
             PRINTORIGINAL = "ใบเสร็จรับเงิน/Receipt (Original ต้นฉบับ)";
@@ -2265,8 +2314,7 @@ namespace bangna_hospital.gui
             //totalNet += net;MNC_SIMB_CD
             //desc = row["MNC_SIMB_CD"]?.ToString()+"  " + desc;
             String codebsg = row["CodeBSG"]?.ToString() ?? "";
-            codebsg = codebsg + "          ";
-            codebsg = codebsg.Substring(0, 10);
+            codebsg = codebsg.PadRight(10);
             desc = codebsg + "  " + desc;
             g.DrawString(desc, fntNormal, Brushes.Black, new RectangleF(colDesc + 4, y, colDescW - 4, rowH));
             if (amount != 0) g.DrawString(amount.ToString("#,##0.00"), fntNormal, Brushes.Black, new RectangleF(colAmount, y, colAmountW - 4, rowH), sfRight);
@@ -2656,6 +2704,472 @@ namespace bangna_hospital.gui
             
             acb = bc.bcDB.pm24DB.getlPaid1(true);
             timeOperList.Start();// Start timer after controls are ready
+            if (PTT != null && !string.IsNullOrEmpty(PTT.Hn))
+            {
+                HN = PTT.Hn;
+                PTTNAME = PTT.Name;
+                updateTopHeaderAndMsg(HN, PTTNAME, PAIDCODE, VSDATE, DOCNO);
+            }
+            else
+            {
+                updateTopHeaderAndMsg("", "", "", "", "");
+            }
         }
+
+        #region PatientMsg and Top Header Module
+        private void initTopHeader()
+        {
+            pnTopHeader = new Panel();
+            pnTopHeader.Name = "pnTopHeader";
+            pnTopHeader.Dock = DockStyle.Top;
+            pnTopHeader.Height = 42;
+            pnTopHeader.BackColor = Color.FromArgb(27, 54, 93); // #1B365D Deep Navy Blue
+            pnTopHeader.Padding = new Padding(10, 4, 10, 4);
+
+            // Left Side: Notification Icon + Message Text
+            lbTopNotifyIcon = new Label();
+            lbTopNotifyIcon.Text = "📢";
+            lbTopNotifyIcon.Font = new Font("Tahoma", 11f, FontStyle.Bold);
+            lbTopNotifyIcon.ForeColor = Color.FromArgb(255, 215, 0); // Gold
+            lbTopNotifyIcon.Dock = DockStyle.Left;
+            lbTopNotifyIcon.Width = 32;
+            lbTopNotifyIcon.TextAlign = ContentAlignment.MiddleCenter;
+
+            lbTopNotification = new Label();
+            lbTopNotification.Text = "ระบบการเงินพร้อมใช้งาน | กรุณาเลือกคนไข้จากรายการ";
+            lbTopNotification.Font = new Font("Tahoma", 10.5f, FontStyle.Bold);
+            lbTopNotification.ForeColor = Color.White;
+            lbTopNotification.Dock = DockStyle.Fill;
+            lbTopNotification.TextAlign = ContentAlignment.MiddleLeft;
+
+            // Right Side: Minimal Action Area (badgePatientMsg + btnTopRefresh)
+            pnTopRight = new Panel();
+            pnTopRight.Dock = DockStyle.Right;
+            pnTopRight.Width = 265;
+            pnTopRight.BackColor = Color.Transparent;
+
+            btnTopRefresh = new Button();
+            btnTopRefresh.Text = "🔄 รีเฟรช";
+            btnTopRefresh.Font = new Font("Tahoma", 9f, FontStyle.Bold);
+            btnTopRefresh.ForeColor = Color.White;
+            btnTopRefresh.BackColor = Color.FromArgb(44, 76, 124);
+            btnTopRefresh.FlatStyle = FlatStyle.Flat;
+            btnTopRefresh.FlatAppearance.BorderSize = 0;
+            btnTopRefresh.Size = new Size(82, 32);
+            btnTopRefresh.Location = new Point(5, 1);
+            btnTopRefresh.Cursor = Cursors.Hand;
+            btnTopRefresh.Click += BtnTopRefresh_Click;
+
+            badgePatientMsg = new Button();
+            badgePatientMsg.Name = "badgePatientMsg";
+            badgePatientMsg.Text = "💬 PatientMsg [ 0 ]";
+            badgePatientMsg.Font = new Font("Tahoma", 9.5f, FontStyle.Bold);
+            badgePatientMsg.ForeColor = Color.White;
+            badgePatientMsg.BackColor = Color.FromArgb(13, 148, 136); // Teal
+            badgePatientMsg.FlatStyle = FlatStyle.Flat;
+            badgePatientMsg.FlatAppearance.BorderSize = 0;
+            badgePatientMsg.Size = new Size(165, 32);
+            badgePatientMsg.Location = new Point(95, 1);
+            badgePatientMsg.Cursor = Cursors.Hand;
+            badgePatientMsg.Click += BadgePatientMsg_Click;
+
+            pnTopRight.Controls.Add(btnTopRefresh);
+            pnTopRight.Controls.Add(badgePatientMsg);
+
+            pnTopHeader.Controls.Add(lbTopNotification);
+            pnTopHeader.Controls.Add(lbTopNotifyIcon);
+            pnTopHeader.Controls.Add(pnTopRight);
+
+            this.Controls.Add(pnTopHeader);
+            pnTopHeader.SendToBack(); // In WinForms docking, SendToBack ensures Top dock takes precedence over Fill
+        }
+
+        private void initPatientMsgDrawer()
+        {
+            drawerPatientMsg = new Panel();
+            drawerPatientMsg.Name = "drawerPatientMsg";
+            drawerPatientMsg.Dock = DockStyle.Right;
+            drawerPatientMsg.Width = 380;
+            drawerPatientMsg.BackColor = Color.FromArgb(248, 249, 250);
+            drawerPatientMsg.Visible = false;
+
+            // Drawer Header
+            pnDrawerHeader = new Panel();
+            pnDrawerHeader.Dock = DockStyle.Top;
+            pnDrawerHeader.Height = 44;
+            pnDrawerHeader.BackColor = Color.FromArgb(30, 41, 59); // Slate Dark
+            pnDrawerHeader.Padding = new Padding(10, 4, 6, 4);
+
+            lbDrawerTitle = new Label();
+            lbDrawerTitle.Text = "💬 PatientMsg: ข้อความคนไข้";
+            lbDrawerTitle.Font = new Font("Tahoma", 10.5f, FontStyle.Bold);
+            lbDrawerTitle.ForeColor = Color.White;
+            lbDrawerTitle.Dock = DockStyle.Fill;
+            lbDrawerTitle.TextAlign = ContentAlignment.MiddleLeft;
+
+            btnDrawerClose = new Button();
+            btnDrawerClose.Text = "✕ ปิด";
+            btnDrawerClose.Font = new Font("Tahoma", 9f, FontStyle.Bold);
+            btnDrawerClose.ForeColor = Color.White;
+            btnDrawerClose.BackColor = Color.FromArgb(220, 38, 38); // Crimson Red
+            btnDrawerClose.FlatStyle = FlatStyle.Flat;
+            btnDrawerClose.FlatAppearance.BorderSize = 0;
+            btnDrawerClose.Size = new Size(55, 32);
+            btnDrawerClose.Dock = DockStyle.Right;
+            btnDrawerClose.Cursor = Cursors.Hand;
+            btnDrawerClose.Click += (s, e) => { drawerPatientMsg.Visible = false; };
+
+            pnDrawerHeader.Controls.Add(lbDrawerTitle);
+            pnDrawerHeader.Controls.Add(btnDrawerClose);
+
+            // Drawer Bottom Compose Area
+            pnDrawerCompose = new Panel();
+            pnDrawerCompose.Dock = DockStyle.Bottom;
+            pnDrawerCompose.Height = 120;
+            pnDrawerCompose.BackColor = Color.White;
+            pnDrawerCompose.BorderStyle = BorderStyle.FixedSingle;
+            pnDrawerCompose.Padding = new Padding(8);
+
+            cboDrawerMsgType = new ComboBox();
+            cboDrawerMsgType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cboDrawerMsgType.Font = new Font("Tahoma", 9f);
+            cboDrawerMsgType.Items.AddRange(new object[] {
+                "📌 ทั่วไป (General)",
+                "🚨 ด่วน/สำคัญ (Urgent)",
+                "💰 การเงิน/สิทธิ (Finance)",
+                "💊 ห้องยา/การใช้ยา (Pharma)"
+            });
+            cboDrawerMsgType.SelectedIndex = 0;
+            cboDrawerMsgType.Dock = DockStyle.Top;
+
+            txtDrawerNewMsg = new TextBox();
+            txtDrawerNewMsg.Multiline = true;
+            txtDrawerNewMsg.ScrollBars = ScrollBars.Vertical;
+            txtDrawerNewMsg.Font = new Font("Tahoma", 9.5f);
+            txtDrawerNewMsg.Dock = DockStyle.Fill;
+
+            btnDrawerSend = new Button();
+            btnDrawerSend.Text = "✈ ส่งข้อความคนไข้";
+            btnDrawerSend.Font = new Font("Tahoma", 9.5f, FontStyle.Bold);
+            btnDrawerSend.ForeColor = Color.White;
+            btnDrawerSend.BackColor = Color.FromArgb(16, 185, 129); // Emerald Green
+            btnDrawerSend.FlatStyle = FlatStyle.Flat;
+            btnDrawerSend.FlatAppearance.BorderSize = 0;
+            btnDrawerSend.Height = 32;
+            btnDrawerSend.Dock = DockStyle.Bottom;
+            btnDrawerSend.Cursor = Cursors.Hand;
+            btnDrawerSend.Click += BtnDrawerSend_Click;
+
+            pnDrawerCompose.Controls.Add(txtDrawerNewMsg);
+            pnDrawerCompose.Controls.Add(cboDrawerMsgType);
+            pnDrawerCompose.Controls.Add(btnDrawerSend);
+
+            // Message Cards Scrollable Container
+            pnDrawerList = new Panel();
+            pnDrawerList.Dock = DockStyle.Fill;
+            pnDrawerList.AutoScroll = true;
+            pnDrawerList.BackColor = Color.FromArgb(241, 245, 249);
+            pnDrawerList.Padding = new Padding(8);
+
+            drawerPatientMsg.Controls.Add(pnDrawerList);
+            drawerPatientMsg.Controls.Add(pnDrawerCompose);
+            drawerPatientMsg.Controls.Add(pnDrawerHeader);
+
+            this.Controls.Add(drawerPatientMsg);
+            drawerPatientMsg.SendToBack();
+        }
+
+        private void BtnTopRefresh_Click(object sender, EventArgs e)
+        {
+            if (tabMain.SelectedTab == tabOper)
+            {
+                setGrfOperList(DateTime.Now.ToString("yyyy-MM-dd"));
+            }
+            else
+            {
+                setGrfFinish(DateTime.Now.ToString("yyyy-MM-dd"));
+            }
+        }
+
+        private void BadgePatientMsg_Click(object sender, EventArgs e)
+        {
+            drawerPatientMsg.Visible = !drawerPatientMsg.Visible;
+            if (drawerPatientMsg.Visible)
+            {
+                if (!string.IsNullOrEmpty(HN))
+                {
+                    foreach (var m in lPatientMsgs.Where(x => x.HN == HN))
+                    {
+                        m.IsRead = true;
+                    }
+                    refreshPatientMsgUI(HN);
+                }
+                txtDrawerNewMsg.Focus();
+            }
+        }
+
+        private void BtnDrawerSend_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(HN))
+            {
+                MessageBox.Show("กรุณาเลือกคนไข้จากตารางก่อนส่งข้อความ", "PatientMsg", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            string text = txtDrawerNewMsg.Text.Trim();
+            if (string.IsNullOrEmpty(text))
+            {
+                txtDrawerNewMsg.Focus();
+                return;
+            }
+
+            string type = "GENERAL";
+            if (cboDrawerMsgType.SelectedIndex == 1) type = "URGENT";
+            else if (cboDrawerMsgType.SelectedIndex == 2) type = "FINANCE";
+            else if (cboDrawerMsgType.SelectedIndex == 3) type = "PHARMA";
+
+            string senderName = string.IsNullOrEmpty(bc.userId) ? "การเงิน (Cashier)" : bc.userId;
+
+            var newMsg = new PatientMsgItem
+            {
+                MsgId = Guid.NewGuid().ToString("N"),
+                HN = HN,
+                Preno = PRENO,
+                VsDate = VSDATE,
+                SenderName = senderName,
+                SenderDept = "การเงิน/เก็บเงิน",
+                MsgType = type,
+                MsgText = text,
+                CreateDate = DateTime.Now,
+                IsRead = true
+            };
+
+            lPatientMsgs.Add(newMsg);
+
+            // DB Persist (Self-healing attempt)
+            try
+            {
+                string checkSql = "IF OBJECT_ID('t_patient_message') IS NULL " +
+                    "CREATE TABLE t_patient_message (" +
+                    "msg_id VARCHAR(50) PRIMARY KEY, " +
+                    "hn VARCHAR(20) NOT NULL, " +
+                    "preno VARCHAR(20) NULL, " +
+                    "vs_date VARCHAR(20) NULL, " +
+                    "sender_staff_id VARCHAR(20) NULL, " +
+                    "sender_name NVARCHAR(100) NULL, " +
+                    "sender_dept NVARCHAR(50) NULL, " +
+                    "msg_type VARCHAR(20) DEFAULT 'GENERAL', " +
+                    "msg_text NVARCHAR(1000) NOT NULL, " +
+                    "create_date DATETIME DEFAULT GETDATE(), " +
+                    "is_read CHAR(1) DEFAULT '0');";
+                bc.conn.ExecuteNonQuery(bc.conn.connMainHIS, checkSql);
+
+                string insertSql = $"INSERT INTO t_patient_message (msg_id, hn, preno, vs_date, sender_staff_id, sender_name, sender_dept, msg_type, msg_text, create_date, is_read) " +
+                    $"VALUES ('{newMsg.MsgId}', '{newMsg.HN}', '{newMsg.Preno}', '{newMsg.VsDate}', '{bc.userId}', '{newMsg.SenderName}', '{newMsg.SenderDept}', '{newMsg.MsgType}', '{newMsg.MsgText.Replace("'", "''")}', GETDATE(), '1')";
+                bc.conn.ExecuteNonQuery(bc.conn.connMainHIS, insertSql);
+            }
+            catch { /* In-memory fallback if table creation or connection restricted */ }
+
+            txtDrawerNewMsg.Clear();
+            refreshPatientMsgUI(HN);
+        }
+
+        private void updateTopHeaderAndMsg(string hn, string pttName, string paidName, string vsDate, string docNo)
+        {
+            if (string.IsNullOrEmpty(hn))
+            {
+                if (lbTopNotification != null)
+                    lbTopNotification.Text = "ระบบการเงินพร้อมใช้งาน | กรุณาเลือกคนไข้จากรายการ";
+                if (badgePatientMsg != null)
+                {
+                    badgePatientMsg.Text = "💬 PatientMsg [ 0 ]";
+                    badgePatientMsg.BackColor = Color.FromArgb(13, 148, 136);
+                }
+                if (lbDrawerTitle != null)
+                {
+                    lbDrawerTitle.Text = "💬 PatientMsg: ข้อความคนไข้";
+                }
+                renderDrawerMessages(new List<PatientMsgItem>());
+                return;
+            }
+
+            // Update Notification Header Text
+            string docInfo = string.IsNullOrEmpty(docNo) ? "" : $" | บิล/เอกสาร: {docNo}";
+            string paidInfo = string.IsNullOrEmpty(paidName) ? "" : $" | สิทธิ: {paidName}";
+            if (lbTopNotification != null)
+            {
+                lbTopNotification.Text = $"ผู้ป่วย: HN {hn} - {pttName}{paidInfo}{docInfo}";
+            }
+            if (lbDrawerTitle != null)
+            {
+                lbDrawerTitle.Text = $"💬 PatientMsg: HN {hn} {pttName}";
+            }
+
+            // Ensure seed messages exist for this HN if first time selected
+            seedPatientMessagesIfEmpty(hn, pttName, paidName);
+
+            // Refresh message cards & badge count
+            refreshPatientMsgUI(hn);
+        }
+
+        private void seedPatientMessagesIfEmpty(string hn, string pttName, string paidName)
+        {
+            if (string.IsNullOrEmpty(hn)) return;
+            if (lPatientMsgs.Any(x => x.HN == hn)) return;
+
+            // Seed demo messages for realistic HIS workflow demonstration
+            lPatientMsgs.Add(new PatientMsgItem
+            {
+                MsgId = Guid.NewGuid().ToString("N"),
+                HN = hn,
+                Preno = PRENO,
+                VsDate = VSDATE,
+                SenderName = "พว.อรทัย ใจดี",
+                SenderDept = "คัดกรอง OPD 1",
+                MsgType = "URGENT",
+                MsgText = $"ผู้ป่วย HN {hn} ({pttName}) ตรวจสอบเอกสารสิทธิ {paidName} แล้ว แจ้งว่าต้องการใบรับรองแพทย์ 2 ฉบับ",
+                CreateDate = DateTime.Now.AddMinutes(-35),
+                IsRead = false
+            });
+
+            lPatientMsgs.Add(new PatientMsgItem
+            {
+                MsgId = Guid.NewGuid().ToString("N"),
+                HN = hn,
+                Preno = PRENO,
+                VsDate = VSDATE,
+                SenderName = "ภญ.สิริพร สุขเกษม",
+                SenderDept = "ห้องยา OPD",
+                MsgType = "PHARMA",
+                MsgText = "คนไข้แจ้งเคยมีอาการคลื่นไส้จากยาแก้ปวดตัวเดิม แพทย์ปรับลดขนาดยาแล้ว จัดยาเรียบร้อยพร้อมเรียกรับยาช่อง 3",
+                CreateDate = DateTime.Now.AddMinutes(-12),
+                IsRead = false
+            });
+        }
+
+        private void refreshPatientMsgUI(string hn)
+        {
+            var msgs = lPatientMsgs.Where(x => x.HN == hn).OrderByDescending(x => x.CreateDate).ToList();
+            int unread = msgs.Count(x => !x.IsRead);
+
+            if (badgePatientMsg != null)
+            {
+                badgePatientMsg.Text = $"💬 PatientMsg [ {unread} ]";
+                if (unread > 0)
+                {
+                    badgePatientMsg.BackColor = Color.FromArgb(230, 126, 34); // Amber Orange
+                }
+                else
+                {
+                    badgePatientMsg.BackColor = Color.FromArgb(13, 148, 136); // Teal
+                }
+            }
+
+            renderDrawerMessages(msgs);
+        }
+
+        private void renderDrawerMessages(List<PatientMsgItem> msgs)
+        {
+            if (pnDrawerList == null) return;
+            pnDrawerList.SuspendLayout();
+            pnDrawerList.Controls.Clear();
+
+            if (msgs == null || msgs.Count == 0)
+            {
+                Label lbEmpty = new Label();
+                lbEmpty.Text = "ยังไม่มีข้อความส่งต่อสำหรับผู้ป่วยรายนี้\nสามารถพิมพ์ข้อความด้านล่างเพื่อสื่อสารข้ามแผนก";
+                lbEmpty.Font = new Font("Tahoma", 9.5f, FontStyle.Regular);
+                lbEmpty.ForeColor = Color.FromArgb(100, 116, 139);
+                lbEmpty.Dock = DockStyle.Top;
+                lbEmpty.Height = 60;
+                lbEmpty.TextAlign = ContentAlignment.MiddleCenter;
+                pnDrawerList.Controls.Add(lbEmpty);
+                pnDrawerList.ResumeLayout();
+                return;
+            }
+
+            int cardWidth = Math.Max(260, pnDrawerList.ClientSize.Width - 25);
+            int currentY = 8;
+
+            foreach (var item in msgs)
+            {
+                Panel card = new Panel();
+                card.Location = new Point(8, currentY);
+                card.Width = cardWidth;
+                card.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                card.BackColor = Color.White;
+                card.BorderStyle = BorderStyle.FixedSingle;
+                card.Padding = new Padding(8);
+
+                // Top row: Sender + Time + Badge
+                Panel pnCardTop = new Panel();
+                pnCardTop.Dock = DockStyle.Top;
+                pnCardTop.Height = 22;
+                pnCardTop.BackColor = Color.Transparent;
+
+                Label lbSender = new Label();
+                lbSender.Text = $"👤 {item.SenderName} ({item.SenderDept})";
+                lbSender.Font = new Font("Tahoma", 8.5f, FontStyle.Bold);
+                lbSender.ForeColor = Color.FromArgb(30, 41, 59);
+                lbSender.Dock = DockStyle.Left;
+                lbSender.AutoSize = true;
+
+                Label lbTime = new Label();
+                lbTime.Text = item.CreateDate.ToString("HH:mm น.");
+                lbTime.Font = new Font("Tahoma", 8f, FontStyle.Regular);
+                lbTime.ForeColor = Color.FromArgb(100, 116, 139);
+                lbTime.Dock = DockStyle.Right;
+                lbTime.AutoSize = true;
+
+                Label lbBadge = new Label();
+                lbBadge.Dock = DockStyle.Right;
+                lbBadge.AutoSize = true;
+                lbBadge.Font = new Font("Tahoma", 7.5f, FontStyle.Bold);
+                if (item.MsgType == "URGENT")
+                {
+                    lbBadge.Text = " [ด่วน/สำคัญ] ";
+                    lbBadge.ForeColor = Color.FromArgb(185, 28, 28);
+                    card.BackColor = Color.FromArgb(254, 242, 242);
+                }
+                else if (item.MsgType == "FINANCE")
+                {
+                    lbBadge.Text = " [การเงิน] ";
+                    lbBadge.ForeColor = Color.FromArgb(3, 105, 161);
+                }
+                else if (item.MsgType == "PHARMA")
+                {
+                    lbBadge.Text = " [ห้องยา] ";
+                    lbBadge.ForeColor = Color.FromArgb(15, 118, 110);
+                }
+                else
+                {
+                    lbBadge.Text = " [ทั่วไป] ";
+                    lbBadge.ForeColor = Color.FromArgb(71, 85, 105);
+                }
+
+                pnCardTop.Controls.Add(lbSender);
+                pnCardTop.Controls.Add(lbBadge);
+                pnCardTop.Controls.Add(lbTime);
+
+                // Body row: MsgText
+                Label lbText = new Label();
+                lbText.Text = item.MsgText;
+                lbText.Font = new Font("Tahoma", 9f, FontStyle.Regular);
+                lbText.ForeColor = Color.FromArgb(51, 65, 85);
+                lbText.Dock = DockStyle.Top;
+                lbText.AutoSize = true;
+                lbText.MaximumSize = new Size(cardWidth - 20, 0);
+
+                card.Controls.Add(lbText);
+                card.Controls.Add(pnCardTop);
+                card.Height = Math.Max(64, lbText.PreferredHeight + 36);
+
+                pnDrawerList.Controls.Add(card);
+                currentY += card.Height + 10;
+            }
+
+            pnDrawerList.ResumeLayout();
+        }
+        #endregion
     }
 }

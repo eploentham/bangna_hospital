@@ -1,4 +1,4 @@
-﻿using bangna_hospital.object1;
+using bangna_hospital.object1;
 using MySql.Data.MySqlClient;
 using Npgsql;
 using System;
@@ -156,34 +156,24 @@ namespace bangna_hospital.objdb
             com.Connection = con;
             try
             {
-                con.Open();
-                //_rowsAffected = com.ExecuteNonQuery();
-                //if (sql.Substring(0,2).ToLower().IndexOf("in")>=0)
-                //{
-                //    _rowsAffected = (int)com.ExecuteScalar();
-                //    //var aaa = com.ExecuteScalar();
-
-                //}
-                //else
-                //{
-                    _rowsAffected = com.ExecuteNonQuery();
-                //}
+                if (con.State == ConnectionState.Closed)
+                {
+                    con.Open();
+                }
+                _rowsAffected = com.ExecuteNonQuery();
                 toReturn = _rowsAffected.ToString();
-                //toReturn = sql.Substring(0, 1).ToLower() == "i" ? com.LastInsertedId.ToString() : _rowsAffected.ToString();
-                //if (sql.IndexOf("Insert Into Visit") >= 0)        //old program
-                //{
-                //    toReturn = _rowsAffected.ToString();
-                //}
             }
             catch (Exception ex)
             {
-                throw new Exception("ExecuteNonQuery::Error occured.", ex);
                 toReturn = ex.Message;
+                throw new Exception("ExecuteNonQuery::Error occured.", ex);
             }
             finally
             {
-                //_mainConnection.Close();
-                con.Close();
+                if (con.State == ConnectionState.Open)
+                {
+                    con.Close();
+                }
                 com.Dispose();
             }
             return toReturn;

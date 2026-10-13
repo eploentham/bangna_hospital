@@ -1,4 +1,4 @@
-﻿using bangna_hospital.object1;
+using bangna_hospital.object1;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -508,11 +508,29 @@ namespace bangna_hospital.objdb
             , String doccode, String cfryear, String cfrno, String itemcode, String userid)
         {
             String sql = "", re = "";
+            string safeUser = string.IsNullOrEmpty(userid) ? "ADMIN" : (userid.Length > 5 ? userid.Substring(0, 5) : userid);
+            string safeFullUser = string.IsNullOrEmpty(userid) ? "ADMIN" : (userid.Length > 100 ? userid.Substring(0, 100) : userid);
+            string safeUsing = using1 != null && using1.Length > 100 ? using1.Substring(0, 100) : (using1 ?? "");
+            string safeFreq = freq != null && freq.Length > 100 ? freq.Substring(0, 100) : (freq ?? "");
+            string safeIndica = indica != null && indica.Length > 100 ? indica.Substring(0, 100) : (indica ?? "");
+            string safePrecau = precau != null && precau.Length > 100 ? precau.Substring(0, 100) : (precau ?? "");
+            string safeInterac = interac != null && interac.Length > 100 ? interac.Substring(0, 100) : (interac ?? "");
+            string safeProperties = properties != null && properties.Length > 100 ? properties.Substring(0, 100) : (properties ?? "");
+
+            // รวมข้อความวิธีใช้ MNC_PH_DIR_DSC เพื่อให้พิมพ์ฉลากยา OPD และ Delphi แสดงผลตรงกัน
+            string dirDsc = (safeUsing + "/" + safeFreq + "/" + safeIndica + "/" + safePrecau).Trim();
+            if (dirDsc.Length > 100) dirDsc = dirDsc.Substring(0, 100);
+
             sql = "Update  pharmacy_t06 " +
-                "Set using1 = '"+ using1.Replace("'","''") + "', frequency = '"+freq.Replace("'","''")+"', indication = '"+indica.Replace("'","''")+"' " +
-                ", precautions = '"+ precau.Replace("'","''")+"', interaction = '"+ interac.Replace("'","''")+"', properties = '"+ properties.Replace("'","''") +"' " +
-                ", user_modi = '" + userid + "', date_modi = convert(varchar(20), getdate(),20) " +
-                "Where MNC_DOC_CD = '" + doccode + "' and MNC_CFR_YR = '" + cfryear + "' and MNC_CFR_NO = '" + cfrno + "' and MNC_PH_CD = '" + itemcode + "'";
+                "Set using1 = '"+ safeUsing.Replace("'","''") + "', frequency = '"+safeFreq.Replace("'","''")+"', indication = '"+safeIndica.Replace("'","''")+"' " +
+                ", precautions = '"+ safePrecau.Replace("'","''")+"', interaction = '"+ safeInterac.Replace("'","''")+"', properties = '"+ safeProperties.Replace("'","''") +"' " +
+                ", MNC_PH_DIR_DSC = '" + dirDsc.Replace("'", "''") + "' " +
+                ", MNC_USR_UPD = '" + safeUser.Replace("'", "''") + "', user_modi = '" + safeFullUser.Replace("'", "''") + "', date_modi = convert(varchar(20), getdate(),20) " +
+                "Where (MNC_DOC_CD = '" + doccode + "' or MNC_DOC_CD in ('CFR', 'CRO', 'CRI')) " +
+                "  and MNC_CFR_YR = '" + cfryear + "' and MNC_CFR_NO = '" + cfrno + "' " +
+                "  and (MNC_PH_CD = '" + itemcode + "' " +
+                "       or MNC_PH_CD in (select MNC_PH_CD from PHARMACY_M01 where MNC_OLD_CD = '" + itemcode + "') " +
+                "       or MNC_PH_CD in (select MNC_OLD_CD from PHARMACY_M01 where MNC_PH_CD = '" + itemcode + "'))";
             try
             {
                 re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
@@ -520,6 +538,7 @@ namespace bangna_hospital.objdb
             catch (Exception ex)
             {
                 sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "PharmacyT06DB updateUsingFreqIndicau " + ex.Message);
             }
             return re;
         }

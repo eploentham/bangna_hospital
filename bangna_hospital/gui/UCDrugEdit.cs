@@ -1,4 +1,4 @@
-﻿using bangna_hospital.control;
+using bangna_hospital.control;
 using bangna_hospital.object1;
 using C1.Win.C1Ribbon;
 using C1.Win.C1SuperTooltip;
@@ -691,7 +691,7 @@ namespace bangna_hospital.gui
             String interac = txtInteraction.Text.Trim();
             String properties = txtProperties.Text.Trim();
             String result = BC.bcDB.pharT06DB.updateUsingFreqIndicau(using1, freq, indica, precau, interac, properties, DOCCODE, CFRYEAR, CFRNO, DRUGCODE, BC.USERCONFIRMID);
-            if (result.Equals("1"))
+            if (result.Equals("1") || (int.TryParse(result, out int rows) && rows > 0))
             {
                 lfSbMessage.Text = "บันทึกข้อมูลสำเร็จ";
                 DataTable dt = new DataTable();
@@ -700,12 +700,12 @@ namespace bangna_hospital.gui
             }
             else
             {
-                lfSbMessage.Text = "บันทึกข้อมูลไม่สำเร็จ";
+                lfSbMessage.Text = "บันทึกข้อมูลไม่สำเร็จ " + result;
             }
         }
         private void setControl()
         {
-            setControl(CFRYEAR, CFRNO, DOCCODE, DRUGCODE);
+            setControl(DRUGCODE, CFRYEAR, CFRNO, DOCCODE);
         }
         public void setControl(String drugcode, String cfryear, String cfrno, String doccode)
         {

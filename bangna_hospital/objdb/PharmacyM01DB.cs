@@ -1,4 +1,4 @@
-﻿using bangna_hospital.object1;
+using bangna_hospital.object1;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -577,22 +577,10 @@ namespace bangna_hospital.objdb
         public String UpdateCodeBSG(String drugcode, String fncode, String codebsg)
         {
             String sql = "", chk = "";
-            string[] arrCode = drugcode.Split(',');
-            if (arrCode.Length > 1)
+            string[] arrCode = drugcode.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            if (arrCode.Length > 0)
             {
-                drugcode = "";
-                for (int i = 0; i < arrCode.Length; i++)
-                {
-                    if (arrCode[i]?.Length <= 0) continue;
-                    if (i == 0)
-                    {
-                        drugcode += "'" + arrCode[i] + "'";
-                    }
-                    else
-                    {
-                        drugcode += ",'" + arrCode[i] + "'";
-                    }
-                }
+                drugcode = string.Join(",", arrCode.Select(c => "'" + c.Trim().Replace("'", "''") + "'"));
             }
             sql = "Update pharmacy_m01 Set CodeBSG = '" + codebsg + "' " +
                 "Where mnc_ph_cd in (" + drugcode + ") ";

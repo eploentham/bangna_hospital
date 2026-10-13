@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -826,6 +826,12 @@
     <Compile Include="gui\FrmScanAdd.Designer.cs">
       <DependentUpon>FrmScanAdd.cs</DependentUpon>
     </Compile>
+    <Compile Include="gui\FrmScanAddNew.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmScanAddNew.Designer.cs">
+      <DependentUpon>FrmScanAddNew.cs</DependentUpon>
+    </Compile>
     <Compile Include="gui\FrmScanAddLabOut.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -870,6 +876,12 @@
     </Compile>
     <Compile Include="gui\FrmSearchHn.designer.cs">
       <DependentUpon>FrmSearchHn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmSearchPatient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmSearchPatient.Designer.cs">
+      <DependentUpon>FrmSearchPatient.cs</DependentUpon>
     </Compile>
     <Compile Include="gui\FrmSplash.cs">
       <SubType>Form</SubType>
@@ -1604,6 +1616,9 @@
     <EmbeddedResource Include="gui\FrmScanAdd.resx">
       <DependentUpon>FrmScanAdd.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmScanAddNew.resx">
+      <DependentUpon>FrmScanAddNew.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmScanAddLabOut.resx">
       <DependentUpon>FrmScanAddLabOut.cs</DependentUpon>
     </EmbeddedResource>
@@ -1633,6 +1648,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmSearchHn.resx">
       <DependentUpon>FrmSearchHn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmSearchPatient.resx">
+      <DependentUpon>FrmSearchPatient.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmSmartCard.resx">
       <DependentUpon>FrmSmartCard.cs</DependentUpon>

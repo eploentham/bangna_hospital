@@ -2134,7 +2134,7 @@ namespace bangna_hospital.gui
                 String re = BC.bcDB.pharT05DB.updatePttReceiveMed(BC.USERCONFIRMID.Trim(), DOCCD, CFRNO, CFRYEAR, CFRDATE, HN, VSDATE, PRENO);
                 if(int.TryParse(re,out int chk))
                 {
-                    lfSbMessage.Text = "ยืยยัน รับยาเรียบร้อย";
+                    lfSbMessage.Text = "ยืนยัน รับยาเรียบร้อย";
                     setGrfdispOPDList();
                     clearControlDispensingOPD();
                 }

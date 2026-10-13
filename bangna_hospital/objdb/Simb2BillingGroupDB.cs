@@ -140,8 +140,8 @@ namespace bangna_hospital.objdb
                           CodeBSG = '{3}', 
                           BillingSubGroupTH = N'{4}', 
                           BillingSubGroupEN = N'{5}', 
-                          CreatedDate = {6},                          
-                          WHERE ID = {8}",
+                          CreatedDate = {6}                          
+                          WHERE ID = {7}",
                 obj.CodeBG?.Replace("'", "''") ?? "",
                 obj.BillingGroupTH?.Replace("'", "''") ?? "",
                 obj.BillingGroupEN?.Replace("'", "''") ?? "",

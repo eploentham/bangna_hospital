@@ -1,4 +1,4 @@
-﻿using C1.Win.C1Command;
+using C1.Win.C1Command;
 using bangna_hospital.control;
 using System;
 using System.Collections.Generic;
@@ -61,6 +61,7 @@ namespace bangna_hospital.gui
             this.FormClosing += MainMenu4_FormClosing;
             menuExit.Click += MenuExit_Click;
             menuScan.Click += MenuScan_Click;
+            menuScanAddNew.Click += MenuScanAddNew_Click;
             menuDocGroup.Click += MenuDocGroup_Click;
             menuScanView.Click += MenuScanView_Click;
             menuDocGroupSub.Click += MenuDocGroupSub_Click;
@@ -69,6 +70,11 @@ namespace bangna_hospital.gui
             menuScanChk.Click += MenuScanChk_Click1;
             menuFMCode.Click += MenuFMCode_Click;
             menuFmEdit.Click += MenuFmEdit_Click;
+
+            if (bc.iniC.programLoad.Equals("ScanAdd", StringComparison.OrdinalIgnoreCase))
+            {
+                MenuScanAddNew_Click(null, null);
+            }
         }
 
         private void MenuFmEdit_Click(object sender, EventArgs e)
@@ -139,6 +145,13 @@ namespace bangna_hospital.gui
             FrmScanAdd frm = new FrmScanAdd(bc, this);
             frm.FormBorderStyle = FormBorderStyle.None;
             AddNewTab(frm, menuScan.Text + " ");
+        }
+
+        private void MenuScanAddNew_Click(object sender, EventArgs e)
+        {
+            FrmScanAddNew frm = new FrmScanAddNew(bc, this);
+            frm.FormBorderStyle = FormBorderStyle.None;
+            AddNewTab(frm, menuScanAddNew.Text + " ");
         }
 
         private void MenuExit_Click(object sender, EventArgs e)
