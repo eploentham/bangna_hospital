@@ -1,4 +1,4 @@
-﻿using bangna_hospital.object1;
+using bangna_hospital.object1;
 using C1.Win.C1Input;
 using System;
 using System.Collections.Generic;
@@ -67,6 +67,7 @@ namespace bangna_hospital.objdb
             finM02.MNC_USR_UPD = "MNC_USR_UPD";
             finM02.MNC_ACCOUNT_NO = "MNC_ACCOUNT_NO";
             finM02.opbkk_inscl = "opbkk_inscl";
+            finM02.paid_group = "paid_group";
 
             lPm02 = new List<FinanceM02>();
         }
@@ -147,6 +148,8 @@ namespace bangna_hospital.objdb
                 FinanceM02 cus1 = new FinanceM02();
                 cus1.MNC_FN_TYP_CD = row[finM02.MNC_FN_TYP_CD].ToString();
                 cus1.MNC_FN_TYP_DSC = row[finM02.MNC_FN_TYP_DSC].ToString();
+                if (dt.Columns.Contains("paid_group") && row["paid_group"] != null && !Convert.IsDBNull(row["paid_group"]))
+                    cus1.paid_group = row["paid_group"].ToString().Trim();
                 lPm02.Add(cus1);
             }
             RebuildAllIndexes();
@@ -165,6 +168,8 @@ namespace bangna_hospital.objdb
                 FinanceM02 cus1 = new FinanceM02();
                 cus1.MNC_FN_TYP_CD = row[finM02.MNC_FN_TYP_CD].ToString();
                 cus1.MNC_FN_TYP_DSC = row[finM02.MNC_FN_TYP_DSC].ToString();
+                if (dt.Columns.Contains("paid_group") && row["paid_group"] != null && !Convert.IsDBNull(row["paid_group"]))
+                    cus1.paid_group = row["paid_group"].ToString().Trim();
 
                 lPm02.Add(cus1);
             }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -45,5 +45,6 @@ namespace bangna_hospital.object1
         public String MNC_USR_UPD { get; set; }
         public String MNC_ACCOUNT_NO { get; set; }
         public String opbkk_inscl { get; set; }
+        public String paid_group { get; set; }
     }
 }
